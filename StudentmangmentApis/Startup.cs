@@ -28,6 +28,14 @@ namespace StudentmangmentApis
         {
 
             services.AddControllers();
+            services.AddCors(options => options.AddPolicy("Cors", builder =>
+             {
+                 builder
+                 .AllowAnyOrigin()
+                 .AllowAnyMethod()
+                 .AllowAnyHeader();
+                 
+             }));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "StudentmangmentApis", Version = "v1" });
@@ -47,7 +55,7 @@ namespace StudentmangmentApis
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors("Cors");
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
